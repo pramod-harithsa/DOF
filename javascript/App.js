@@ -78,7 +78,7 @@ esriConfig.defaults.io.corsEnabledServers.push("arcgis.com");
             layers: [bakkenWellsLayer]
           }, "swipeDiv");
           swipeWidget.startup();
-          $(#swipeToggle).on('click',function(){$( "#swipeDiv" ).toggle();});
+          $('#swipeToggle').on('click',function(){$( '#swipeDiv' ).toggle();});
 	$('.current-location').on('click',function() { $this.getLocation($this.model) });
 	$('#search-input').on('typeahead:selected', function (evt, datum, name) {
 		$this.map.centerAndZoom(new esri.geometry.Point(datum.lon, datum.lat), 12);

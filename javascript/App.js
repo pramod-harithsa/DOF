@@ -56,7 +56,7 @@ esriConfig.defaults.io.corsEnabledServers.push("arcgis.com");
  var bakkenDivLayer=new esri.layers.ArcGISDynamicMapServiceLayer("http://energy.esri.com/arcgis/rest/services/Bakken/BakkenMS/MapServer",
  {useMapImage:true});
  var bakkenWellsLayer=new esri.layers.ArcGISDynamicMapServiceLayer("http://energy.esri.com/arcgis/rest/services/Bakken/Wells_by_County/MapServer",
- {useMapImage:true});
+ {useMapImage:true,"opacity": 0.5});
  var bakkenOpsLayer=new esri.layers.ArcGISDynamicMapServiceLayer("http://energy.esri.com/arcgis/rest/services/Bakken/Operations/MapServer",
  {useMapImage:true});
  var bakkenFeaturesLayer=new esri.layers.ArcGISDynamicMapServiceLayer("http://energy.esri.com/arcgis/rest/services/Bakken/Features/MapServer",
@@ -64,6 +64,10 @@ esriConfig.defaults.io.corsEnabledServers.push("arcgis.com");
  var bakkenVehiclesLayer=new esri.layers.ArcGISDynamicMapServiceLayer("http://energy.esri.com/arcgis/rest/services/Bakken/Maintenance_Vehicles/MapServer",
  {useMapImage:true});
  this.map.addLayers([basemapLayer,infraLayer,spillLayer,wellLayer,responseLayer,spillAreaLayer,protractionLayer,bakkenDivLayer,bakkenWellsLayer,bakkenOpsLayer,bakkenFeaturesLayer,bakkenVehiclesLayer]);
+ var home = new HomeButton({
+        map: this.map
+      }, "HomeButton");
+      home.startup();
 	$('.current-location').on('click',function() { $this.getLocation($this.model) });
 	$('#search-input').on('typeahead:selected', function (evt, datum, name) {
 		$this.map.centerAndZoom(new esri.geometry.Point(datum.lon, datum.lat), 12);

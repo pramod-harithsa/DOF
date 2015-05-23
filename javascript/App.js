@@ -1,4 +1,5 @@
 dojo.require('esri.map', 'esri.tasks.locator', 'esri.geometry.webMercatorUtils');
+dojo.require("esri.layers.agsdynamic");
 dojo.addOnLoad(function () {
 var AppView = Backbone.View.extend({
 el: 'body',
@@ -11,6 +12,7 @@ initialize: function() {
 	this.fb = new Firebase('https://boiling-fire-2225.firebaseio.com/users');
 	//https://boiling-fire-2225.firebaseio.com/users
 	this.symbol = new esri.symbol.SimpleMarkerSymbol().setColor(new dojo.Color([0, 255, 0, 0.25]));
+	/*
 	require(["esri/arcgis/utils","esri/config"], function(arcgisUtils,esriConfig) { 
 var deferred;
 esriConfig.defaults.io.corsEnabledServers.push("arcgis.com");
@@ -34,9 +36,16 @@ esriConfig.defaults.io.corsEnabledServers.push("arcgis.com");
     });
 
  });
-	
+*/	
 
-	//this.map = new esri.Map('map', {basemap: 'osm', center: [-98.737039, 38.737039], zoom: 4 });
+	this.map = new esri.Map('map', {basemap: 'osm', center: [-98.737039, 38.737039], zoom: 4 });
+	var infraLayer=new esri.layers.ArcGISDynamicMapServiceLayer("http://energy.esri.com/arcgis/rest/services/NorthSea_Response/NorthSeaInfrastructure/MapServer",
+ {useMapImage:true});
+ var spillLayer=new esri.layers.ArcGISDynamicMapServiceLayer("http://energy.esri.com/arcgis/rest/services/NorthSea_Response/SpillExtent/MapServer",
+ {useMapImage:true});
+ var wellLayer=new esri.layers.ArcGISDynamicMapServiceLayer("http://energy.esri.com/arcgis/rest/services/NorthSea_Response/UK_WellsResponse/MapServer",
+ {useMapImage:true});
+ this.map.addLayers([infraLayer,spillLayer,wellLayer]);
 	$('.current-location').on('click',function() { $this.getLocation($this.model) });
 	$('#search-input').on('typeahead:selected', function (evt, datum, name) {
 		$this.map.centerAndZoom(new esri.geometry.Point(datum.lon, datum.lat), 15);

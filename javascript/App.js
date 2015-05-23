@@ -2,6 +2,7 @@ dojo.require('esri.map', 'esri.tasks.locator', 'esri.geometry.webMercatorUtils')
 dojo.require("esri.layers.agsdynamic");
 dojo.require("esri.dijit.HomeButton");
 dojo.require("esri.dijit.LayerSwipe");
+dojo.require("esri.layers.FeatureLayer");
 dojo.addOnLoad(function () {
 var AppView = Backbone.View.extend({
 el: 'body',
@@ -57,8 +58,9 @@ esriConfig.defaults.io.corsEnabledServers.push("arcgis.com");
  {useMapImage:true});
  var bakkenDivLayer=new esri.layers.ArcGISDynamicMapServiceLayer("http://energy.esri.com/arcgis/rest/services/Bakken/BakkenMS/MapServer",
  {useMapImage:true});
- var bakkenWellsLayer=new esri.layers.ArcGISDynamicMapServiceLayer("http://energy.esri.com/arcgis/rest/services/Bakken/Wells_by_County/MapServer",
- {useMapImage:true,"opacity": 0.5});
+ //var bakkenWellsLayer=new esri.layers.ArcGISDynamicMapServiceLayer("http://energy.esri.com/arcgis/rest/services/Bakken/Wells_by_County/MapServer",
+ //{useMapImage:true,"opacity": 0.5});
+ var bakkenWellsLayer = new esri.layers.FeatureLayer("http://energy.esri.com/arcgis/rest/services/Bakken/Wells_by_County/MapServer/0", {showLabels: true, outFields: ["*"],"opacity": 0.5});
  var bakkenOpsLayer=new esri.layers.ArcGISDynamicMapServiceLayer("http://energy.esri.com/arcgis/rest/services/Bakken/Operations/MapServer",
  {useMapImage:true});
  var bakkenFeaturesLayer=new esri.layers.ArcGISDynamicMapServiceLayer("http://energy.esri.com/arcgis/rest/services/Bakken/Features/MapServer",

@@ -38,20 +38,38 @@ esriConfig.defaults.io.corsEnabledServers.push("arcgis.com");
  });
 */	
 
-	this.map = new esri.Map('map', {basemap: 'osm', center: [-98.737039, 38.737039], zoom: 4 });
+	this.map = new esri.Map('map', {basemap: 'osm', center: [-103.655728, 48.264821], zoom: 10 });
 	var infraLayer=new esri.layers.ArcGISDynamicMapServiceLayer("http://energy.esri.com/arcgis/rest/services/NorthSea_Response/NorthSeaInfrastructure/MapServer",
  {useMapImage:true});
  var spillLayer=new esri.layers.ArcGISDynamicMapServiceLayer("http://energy.esri.com/arcgis/rest/services/NorthSea_Response/SpillExtent/MapServer",
  {useMapImage:true});
  var wellLayer=new esri.layers.ArcGISDynamicMapServiceLayer("http://energy.esri.com/arcgis/rest/services/NorthSea_Response/UK_WellsResponse/MapServer",
  {useMapImage:true});
- this.map.addLayers([infraLayer,spillLayer,wellLayer]);
+  var basemapLayer=new esri.layers.ArcGISDynamicMapServiceLayer("http://energy.esri.com/arcgis/rest/services/NorthSea_Response/NorthSeaBasemap/MapServer",
+ {useMapImage:true});
+ var responseLayer=new esri.layers.ArcGISDynamicMapServiceLayer("http://energy.esri.com/arcgis/rest/services/NorthSea_Response/Resources/MapServer",
+ {useMapImage:true});
+ var spillAreaLayer=new esri.layers.ArcGISDynamicMapServiceLayer("http://energy.esri.com/arcgis/rest/services/NorthSea_Response/SpillSite/MapServer",
+ {useMapImage:true});
+ var protractionLayer=new esri.layers.ArcGISDynamicMapServiceLayer("http://energy.esri.com/arcgis/rest/services/NorthSea_Response/NorthSeaProtraction/MapServer",
+ {useMapImage:true});
+ var bakkenDivLayer=new esri.layers.ArcGISDynamicMapServiceLayer("http://energy.esri.com/arcgis/rest/services/Bakken/BakkenMS/MapServer",
+ {useMapImage:true});
+ var bakkenWellsLayer=new esri.layers.ArcGISDynamicMapServiceLayer("http://energy.esri.com/arcgis/rest/services/Bakken/Wells_by_County/MapServer",
+ {useMapImage:true});
+ var bakkenOpsLayer=new esri.layers.ArcGISDynamicMapServiceLayer("http://energy.esri.com/arcgis/rest/services/Bakken/Operations/MapServer",
+ {useMapImage:true});
+ var bakkenFeaturesLayer=new esri.layers.ArcGISDynamicMapServiceLayer("http://energy.esri.com/arcgis/rest/services/Bakken/Features/MapServer",
+ {useMapImage:true});
+ var bakkenVehiclesLayer=new esri.layers.ArcGISDynamicMapServiceLayer("http://energy.esri.com/arcgis/rest/services/Bakken/Maintenance_Vehicles/MapServer",
+ {useMapImage:true});
+ this.map.addLayers([basemapLayer,infraLayer,spillLayer,wellLayer,responseLayer,spillAreaLayer,protractionLayer,bakkenDivLayer,bakkenWellsLayer,bakkenOpsLayer,bakkenFeaturesLayer,bakkenVehiclesLayer]);
 	$('.current-location').on('click',function() { $this.getLocation($this.model) });
 	$('#search-input').on('typeahead:selected', function (evt, datum, name) {
-		$this.map.centerAndZoom(new esri.geometry.Point(datum.lon, datum.lat), 15);
+		$this.map.centerAndZoom(new esri.geometry.Point(datum.lon, datum.lat), 12);
 		$('#search-modal').modal('hide');
 	});
-	$('#dev-summit').on('click',function() { $this.map.centerAndZoom([-116.5382, 33.8260], 16)});
+	$('#dev-summit').on('click',function() { $this.map.centerAndZoom([3.978918, 58.029052], 8)});
 	this.fb.on('value', function (ss) {
 		$this.messages = [];
 		_.each(ss.val(), function (item) { _.each(item.messages, function (item2) {

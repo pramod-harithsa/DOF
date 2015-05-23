@@ -38,7 +38,7 @@ esriConfig.defaults.io.corsEnabledServers.push("arcgis.com");
  });
 */	
 
-	this.map = new esri.Map('map', {basemap: 'osm', center: [-103.396454, 48.284335], zoom: 15 });
+	this.map = new esri.Map('map', {basemap: 'osm', center: [-103.396454, 48.284335], zoom: 12 });
 	var infraLayer=new esri.layers.ArcGISDynamicMapServiceLayer("http://energy.esri.com/arcgis/rest/services/NorthSea_Response/NorthSeaInfrastructure/MapServer",
  {useMapImage:true});
  var spillLayer=new esri.layers.ArcGISDynamicMapServiceLayer("http://energy.esri.com/arcgis/rest/services/NorthSea_Response/SpillExtent/MapServer",
@@ -73,7 +73,7 @@ esriConfig.defaults.io.corsEnabledServers.push("arcgis.com");
 		$this.map.centerAndZoom(new esri.geometry.Point(datum.lon, datum.lat), 12);
 		$('#search-modal').modal('hide');
 	});
-	$('#dev-summit').on('click',function() { $this.map.centerAndZoom([2.414142, 57.348584], 10)});
+	$('#dev-summit').on('click',function() { $this.map.centerAndZoom([2.414142, 57.348584], 16)});
 	this.fb.on('value', function (ss) {
 		$this.messages = [];
 		_.each(ss.val(), function (item) { _.each(item.messages, function (item2) {

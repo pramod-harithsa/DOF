@@ -14,7 +14,7 @@ initialize: function() {
 	require(["esri/arcgis/utils","esri/config"], function(arcgisUtils,esriConfig) { 
 var deferred;
 esriConfig.defaults.io.corsEnabledServers.push("arcgis.com");
-esriConfig.defaults.io.corsEnabledServers.push("energy.esri.com");
+//esriConfig.defaults.io.corsEnabledServers.push("energy.esri.com");
     var createMapOptions = {
         mapOptions: {
             slider: true

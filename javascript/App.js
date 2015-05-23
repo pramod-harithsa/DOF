@@ -1,5 +1,6 @@
 dojo.require('esri.map', 'esri.tasks.locator', 'esri.geometry.webMercatorUtils');
 dojo.require("esri.layers.agsdynamic");
+dojo.require("esri.dijit.HomeButton");
 dojo.addOnLoad(function () {
 var AppView = Backbone.View.extend({
 el: 'body',

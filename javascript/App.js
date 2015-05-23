@@ -1,6 +1,7 @@
 dojo.require('esri.map', 'esri.tasks.locator', 'esri.geometry.webMercatorUtils');
 dojo.require("esri.layers.agsdynamic");
 dojo.require("esri.dijit.HomeButton");
+dojo.require("esri.dijit.LayerSwipe");
 dojo.addOnLoad(function () {
 var AppView = Backbone.View.extend({
 el: 'body',
@@ -69,6 +70,12 @@ esriConfig.defaults.io.corsEnabledServers.push("arcgis.com");
         map: this.map
       }, "HomeButton");
       home.startup();
+      var swipeWidget = new esri.dijit.LayerSwipe({
+            type: "vertical",  //Try switching to "scope" or "horizontal"
+            map: map,
+            layers: [bakkenWellsLayer]
+          }, "swipeDiv");
+          swipeWidget.startup();
 	$('.current-location').on('click',function() { $this.getLocation($this.model) });
 	$('#search-input').on('typeahead:selected', function (evt, datum, name) {
 		$this.map.centerAndZoom(new esri.geometry.Point(datum.lon, datum.lat), 12);

@@ -3,7 +3,7 @@ dojo.require("esri.layers.agsdynamic");
 dojo.require("esri.dijit.HomeButton");
 dojo.require("esri.dijit.LayerSwipe");
 dojo.require("esri.layers.FeatureLayer");
-dojo.require("esri.Color");
+
 dojo.addOnLoad(function () {
 var AppView = Backbone.View.extend({
 el: 'body',

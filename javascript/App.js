@@ -3,6 +3,7 @@ dojo.require("esri.layers.agsdynamic");
 dojo.require("esri.dijit.HomeButton");
 dojo.require("esri.dijit.LayerSwipe");
 dojo.require("esri.layers.FeatureLayer");
+dojo.require("esri.Color");
 dojo.addOnLoad(function () {
 var AppView = Backbone.View.extend({
 el: 'body',
@@ -14,7 +15,10 @@ initialize: function() {
 	//this.fb = new Firebase('https://luminous-fire-5575.firebaseio.com/users');
 	this.fb = new Firebase('https://boiling-fire-2225.firebaseio.com/users');
 	//https://boiling-fire-2225.firebaseio.com/users
-	this.symbol = new esri.symbol.SimpleMarkerSymbol().setColor(new dojo.Color([5, 112, 176] ), 2);
+	var startColor = new esri.Color("#0000FF");
+  var endColor = new esri.Color("#CA0013");
+  var blendedColor = esri.Color.blendColors(startColor, endColor, 0.5);
+	this.symbol = new esri.symbol.SimpleMarkerSymbol().setColor(blendedColor);
 	this.symbol.setOutline(null);
 
 	/*

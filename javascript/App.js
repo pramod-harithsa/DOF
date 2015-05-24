@@ -86,76 +86,7 @@ esriConfig.defaults.io.corsEnabledServers.push("arcgis.com");
           swipeWidget.startup();
           
      ////
-     require([
-      
-      "dojo/on",
-      "esri/graphic",
-      "esri/graphicsUtils",
-      "esri/tasks/Geoprocessor",
-      "esri/tasks/FeatureSet",
-      "esri/symbols/SimpleMarkerSymbol",
-      "esri/symbols/SimpleLineSymbol",
-      "esri/symbols/SimpleFillSymbol"
-    ], function(On,Graphic, graphicsUtils, Geoprocessor, FeatureSet, SimpleMarkerSymbol, SimpleLineSymbol,
-                SimpleFillSymbol) {
-
-      var gp;
-      var driveTimes = "1 2 3";
-
-      // Initialize map, GP and image params
-      gp = new Geoprocessor("http://sampleserver1.arcgisonline.com/ArcGIS/rest/services/Network/ESRI_DriveTime_US/GPServer/CreateDriveTimePolygons");
-      gp.setOutputSpatialReference({wkid: 102100});
-      //On(this.map,"click", computeServiceArea);
-
-      function computeServiceArea(evt) {
-        temMapRef.graphics.clear();
-        var pointSymbol = new SimpleMarkerSymbol();
-        pointSymbol.setOutline = new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID, new dojo.Color([255, 0, 0]), 1);
-        pointSymbol.setSize(14);
-        pointSymbol.setColor(new dojo.Color([0, 255, 0, 0.25]));
-
-        var graphic = new Graphic(evt.mapPoint, pointSymbol);
-        temMapRef.graphics.add(graphic);
-
-        var features = [];
-        features.push(graphic);
-        var featureSet = new FeatureSet();
-        featureSet.features = features;
-        var params = { "Input_Location": featureSet, "Drive_Times": driveTimes };
-        gp.execute(params, getDriveTimePolys);
-      }
-
-      function getDriveTimePolys(results, messages) {
-        var features = results[0].value.features;
-        // add drive time polygons to the map
-        for (var f = 0, fl = features.length; f < fl; f++) {
-          var feature = features[f];
-          if (f === 0) {
-            var polySymbolRed = new SimpleFillSymbol();
-            polySymbolRed.setOutline(new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID, new dojo.Color([0, 0, 0, 0.5]), 1));
-            polySymbolRed.setColor(new dojo.Color([255, 0, 0, 0.7]));
-            feature.setSymbol(polySymbolRed);
-          }
-          else if (f == 1) {
-            var polySymbolGreen = new SimpleFillSymbol();
-            polySymbolGreen.setOutline(new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID,
-                new dojo.Color([0, 0, 0, 0.5]), 1));
-            polySymbolGreen.setColor(new dojo.Color([0, 255, 0, 0.7]));
-            feature.setSymbol(polySymbolGreen);
-          }
-          else if (f == 2) {
-            var polySymbolBlue = new SimpleFillSymbol();
-            polySymbolBlue.setOutline(new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID, new dojo.Color([0, 0, 0, 0.5]), 1));
-            polySymbolBlue.setColor(new dojo.Color([0, 0, 255, 0.7]));
-            feature.setSymbol(polySymbolBlue);
-          }
-          temMapRef.graphics.add(feature);
-        }
-        // get the extent for the drive time polygon graphics and
-        // zoom to the extent of the drive time polygons
-        temMapRef.setExtent(graphicsUtils.graphicsExtent(temMapRef.graphics.graphics), true);
-      }
-    });
+     
      ////
      $('#serviceArea').on('click',function(){
      	if (serviceArea){
@@ -164,7 +95,7 @@ esriConfig.defaults.io.corsEnabledServers.push("arcgis.com");
      	}
      	else
      	{
-	serviceArea = dojo.connect(temMapRef, 'onClick', computeServiceArea);
+	serviceArea = dojo.connect(temMapRef, 'onClick', dojo.hitch(this, this.customServiceArea));
      	}
      });
           $('#swipeToggle').on('click',function(){$( '#swipeDiv' ).toggle();});
@@ -245,6 +176,77 @@ saveMsg: function (evt) {
 	};
     g.setInfoTemplate(new esri.InfoTemplate().setTitle(msg.name +' '+ tS).setContent(msg.text));
 });
+},customServiceArea:function(evt){
+	require([
+      
+      "dojo/on",
+      "esri/graphic",
+      "esri/graphicsUtils",
+      "esri/tasks/Geoprocessor",
+      "esri/tasks/FeatureSet",
+      "esri/symbols/SimpleMarkerSymbol",
+      "esri/symbols/SimpleLineSymbol",
+      "esri/symbols/SimpleFillSymbol"
+    ], function(On,Graphic, graphicsUtils, Geoprocessor, FeatureSet, SimpleMarkerSymbol, SimpleLineSymbol,
+                SimpleFillSymbol) {
+
+      var gp;
+      var driveTimes = "1 2 3";
+
+      // Initialize map, GP and image params
+      gp = new Geoprocessor("http://sampleserver1.arcgisonline.com/ArcGIS/rest/services/Network/ESRI_DriveTime_US/GPServer/CreateDriveTimePolygons");
+      gp.setOutputSpatialReference({wkid: 102100});
+      //On(this.map,"click", computeServiceArea);
+
+      
+        temMapRef.graphics.clear();
+        var pointSymbol = new SimpleMarkerSymbol();
+        pointSymbol.setOutline = new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID, new dojo.Color([255, 0, 0]), 1);
+        pointSymbol.setSize(14);
+        pointSymbol.setColor(new dojo.Color([0, 255, 0, 0.25]));
+
+        var graphic = new Graphic(evt.mapPoint, pointSymbol);
+        temMapRef.graphics.add(graphic);
+
+        var features = [];
+        features.push(graphic);
+        var featureSet = new FeatureSet();
+        featureSet.features = features;
+        var params = { "Input_Location": featureSet, "Drive_Times": driveTimes };
+        gp.execute(params, getDriveTimePolys);
+      
+
+      function getDriveTimePolys(results, messages) {
+        var features = results[0].value.features;
+        // add drive time polygons to the map
+        for (var f = 0, fl = features.length; f < fl; f++) {
+          var feature = features[f];
+          if (f === 0) {
+            var polySymbolRed = new SimpleFillSymbol();
+            polySymbolRed.setOutline(new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID, new dojo.Color([0, 0, 0, 0.5]), 1));
+            polySymbolRed.setColor(new dojo.Color([255, 0, 0, 0.7]));
+            feature.setSymbol(polySymbolRed);
+          }
+          else if (f == 1) {
+            var polySymbolGreen = new SimpleFillSymbol();
+            polySymbolGreen.setOutline(new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID,
+                new dojo.Color([0, 0, 0, 0.5]), 1));
+            polySymbolGreen.setColor(new dojo.Color([0, 255, 0, 0.7]));
+            feature.setSymbol(polySymbolGreen);
+          }
+          else if (f == 2) {
+            var polySymbolBlue = new SimpleFillSymbol();
+            polySymbolBlue.setOutline(new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID, new dojo.Color([0, 0, 0, 0.5]), 1));
+            polySymbolBlue.setColor(new dojo.Color([0, 0, 255, 0.7]));
+            feature.setSymbol(polySymbolBlue);
+          }
+          temMapRef.graphics.add(feature);
+        }
+        // get the extent for the drive time polygon graphics and
+        // zoom to the extent of the drive time polygons
+        temMapRef.setExtent(graphicsUtils.graphicsExtent(temMapRef.graphics.graphics), true);
+      }
+    });
 },initTypeahead: function () {
 	$('#search-input').typeahead('destroy');
 	var bloodhound = new Bloodhound({

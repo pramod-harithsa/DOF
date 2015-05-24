@@ -5,12 +5,14 @@ dojo.require("esri.dijit.LayerSwipe");
 dojo.require("esri.layers.FeatureLayer");
 var temMapRef;
 var serviceArea;
+var main;
 dojo.addOnLoad(function () {
 var AppView = Backbone.View.extend({
 el: 'body',
 initialize: function() {
 	_.bindAll.apply(_, [this].concat(_.functions(this)));
 	var $this = this;
+	main=this;
 	this.model = new (Backbone.Model.extend({}))();
 	this.model.on('change', this.toggleShare, this);
 	//this.fb = new Firebase('https://luminous-fire-5575.firebaseio.com/users');
@@ -90,7 +92,7 @@ esriConfig.defaults.io.corsEnabledServers.push("arcgis.com");
      ////
      $('#serviceArea').on('click',function(){
      	
-	serviceArea = dojo.connect(temMapRef, 'onClick', dojo.hitch(this, this.customServiceArea));
+	serviceArea = dojo.connect(temMapRef, 'onClick', main.customServiceArea);
      	
      });
           $('#swipeToggle').on('click',function(){$( '#swipeDiv' ).toggle();});

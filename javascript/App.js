@@ -85,8 +85,8 @@ esriConfig.defaults.io.corsEnabledServers.push("arcgis.com");
           
      ////
      require([
-      "esri/Color",
-      "esri/map",
+      
+      
       "esri/graphic",
       "esri/graphicsUtils",
       "esri/tasks/Geoprocessor",
@@ -94,7 +94,7 @@ esriConfig.defaults.io.corsEnabledServers.push("arcgis.com");
       "esri/symbols/SimpleMarkerSymbol",
       "esri/symbols/SimpleLineSymbol",
       "esri/symbols/SimpleFillSymbol"
-    ], function(Color, Map, Graphic, graphicsUtils, Geoprocessor, FeatureSet, SimpleMarkerSymbol, SimpleLineSymbol,
+    ], function(Graphic, graphicsUtils, Geoprocessor, FeatureSet, SimpleMarkerSymbol, SimpleLineSymbol,
                 SimpleFillSymbol) {
 
       var gp;
@@ -108,9 +108,9 @@ esriConfig.defaults.io.corsEnabledServers.push("arcgis.com");
       function computeServiceArea(evt) {
         this.map.graphics.clear();
         var pointSymbol = new SimpleMarkerSymbol();
-        pointSymbol.setOutline = new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID, new Color([255, 0, 0]), 1);
+        pointSymbol.setOutline = new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID, new dojo.Color([255, 0, 0]), 1);
         pointSymbol.setSize(14);
-        pointSymbol.setColor(new Color([0, 255, 0, 0.25]));
+        pointSymbol.setColor(new dojo.Color([0, 255, 0, 0.25]));
 
         var graphic = new Graphic(evt.mapPoint, pointSymbol);
         this.map.graphics.add(graphic);
@@ -130,21 +130,21 @@ esriConfig.defaults.io.corsEnabledServers.push("arcgis.com");
           var feature = features[f];
           if (f === 0) {
             var polySymbolRed = new SimpleFillSymbol();
-            polySymbolRed.setOutline(new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID, new Color([0, 0, 0, 0.5]), 1));
-            polySymbolRed.setColor(new Color([255, 0, 0, 0.7]));
+            polySymbolRed.setOutline(new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID, new dojo.Color([0, 0, 0, 0.5]), 1));
+            polySymbolRed.setColor(new dojo.Color([255, 0, 0, 0.7]));
             feature.setSymbol(polySymbolRed);
           }
           else if (f == 1) {
             var polySymbolGreen = new SimpleFillSymbol();
             polySymbolGreen.setOutline(new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID,
-                new Color([0, 0, 0, 0.5]), 1));
-            polySymbolGreen.setColor(new Color([0, 255, 0, 0.7]));
+                new dojo.Color([0, 0, 0, 0.5]), 1));
+            polySymbolGreen.setColor(new dojo.Color([0, 255, 0, 0.7]));
             feature.setSymbol(polySymbolGreen);
           }
           else if (f == 2) {
             var polySymbolBlue = new SimpleFillSymbol();
-            polySymbolBlue.setOutline(new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID, new Color([0, 0, 0, 0.5]), 1));
-            polySymbolBlue.setColor(new Color([0, 0, 255, 0.7]));
+            polySymbolBlue.setOutline(new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID, new dojo.Color([0, 0, 0, 0.5]), 1));
+            polySymbolBlue.setColor(new dojo.Color([0, 0, 255, 0.7]));
             feature.setSymbol(polySymbolBlue);
           }
           this.map.graphics.add(feature);

@@ -3,9 +3,10 @@ dojo.require("esri.layers.agsdynamic");
 dojo.require("esri.dijit.HomeButton");
 dojo.require("esri.dijit.LayerSwipe");
 dojo.require("esri.layers.FeatureLayer");
+dojo.require("esri.layers.graphics");
 var temMapRef;
 var serviceArea;
-var main;
+var main, alertGraphicsLayer;
 dojo.addOnLoad(function () {
 var AppView = Backbone.View.extend({
 el: 'body',
@@ -21,7 +22,7 @@ initialize: function() {
 	
 	this.symbol = new esri.symbol.SimpleMarkerSymbol().setColor(new dojo.Color([5, 112, 176] ), 2);
 	this.symbol.setOutline(new esri.symbol.SimpleLineSymbol().setWidth(0.5));
-
+alertGraphicsLayer=new esri.layers.GraphicsLayer();
 	/*
 	require(["esri/arcgis/utils","esri/config"], function(arcgisUtils,esriConfig) { 
 var deferred;
@@ -170,6 +171,7 @@ saveMsg: function (evt) {
 		var pt = new esri.geometry.Point(msg.lon, msg.lat);
 		var g = new esri.Graphic(pt, $this.symbol);
 		$this.map.graphics.add(g);
+		alertGraphicsLayer.add(g);
 	};
     g.setInfoTemplate(new esri.InfoTemplate().setTitle(msg.name +' '+ tS).setContent(msg.text));
 });

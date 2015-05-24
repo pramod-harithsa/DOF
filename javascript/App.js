@@ -92,7 +92,7 @@ esriConfig.defaults.io.corsEnabledServers.push("arcgis.com");
      
      ////
      $('#serviceArea').on('click',function(){
-     	if(serviceArea==null || typeof(serviceArea)=="undefined")
+     	if(serviceArea!=null || typeof(serviceArea)=="undefined")
 	serviceArea = dojo.connect(temMapRef, 'onClick', main.customServiceArea);
      	else
      	{

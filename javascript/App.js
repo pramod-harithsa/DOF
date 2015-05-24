@@ -3,7 +3,7 @@ dojo.require("esri.layers.agsdynamic");
 dojo.require("esri.dijit.HomeButton");
 dojo.require("esri.dijit.LayerSwipe");
 dojo.require("esri.layers.FeatureLayer");
-
+var temMapRef;
 dojo.addOnLoad(function () {
 var AppView = Backbone.View.extend({
 el: 'body',
@@ -46,6 +46,7 @@ esriConfig.defaults.io.corsEnabledServers.push("arcgis.com");
 */	
 
 	this.map = new esri.Map('map', {basemap: 'gray', center: [-103.396454, 48.284335], zoom: 12 });
+	temMapRef=this.map;
 	var infraLayer=new esri.layers.ArcGISDynamicMapServiceLayer("http://energy.esri.com/arcgis/rest/services/NorthSea_Response/NorthSeaInfrastructure/MapServer",
  {useMapImage:true});
  var spillLayer=new esri.layers.ArcGISDynamicMapServiceLayer("http://energy.esri.com/arcgis/rest/services/NorthSea_Response/SpillExtent/MapServer",
@@ -106,14 +107,14 @@ esriConfig.defaults.io.corsEnabledServers.push("arcgis.com");
       On(this.map,"click", computeServiceArea);
 
       function computeServiceArea(evt) {
-        this.map.graphics.clear();
+        temMapRef.graphics.clear();
         var pointSymbol = new SimpleMarkerSymbol();
         pointSymbol.setOutline = new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID, new dojo.Color([255, 0, 0]), 1);
         pointSymbol.setSize(14);
         pointSymbol.setColor(new dojo.Color([0, 255, 0, 0.25]));
 
         var graphic = new Graphic(evt.mapPoint, pointSymbol);
-        this.map.graphics.add(graphic);
+        temMapRef.graphics.add(graphic);
 
         var features = [];
         features.push(graphic);
@@ -147,11 +148,11 @@ esriConfig.defaults.io.corsEnabledServers.push("arcgis.com");
             polySymbolBlue.setColor(new dojo.Color([0, 0, 255, 0.7]));
             feature.setSymbol(polySymbolBlue);
           }
-          this.map.graphics.add(feature);
+          temMapRef.graphics.add(feature);
         }
         // get the extent for the drive time polygon graphics and
         // zoom to the extent of the drive time polygons
-        this.map.setExtent(graphicsUtils.graphicsExtent(this.map.graphics.graphics), true);
+        temMapRef.setExtent(graphicsUtils.graphicsExtent(temMapRef.graphics.graphics), true);
       }
     });
      ////

@@ -45,7 +45,7 @@ esriConfig.defaults.io.corsEnabledServers.push("arcgis.com");
  });
 */	
 
-	this.map = new esri.Map('map', {basemap: 'dark-gray', center: [-103.396454, 48.284335], zoom: 12 });
+	this.map = new esri.Map('map', {basemap: 'gray', center: [-103.396454, 48.284335], zoom: 12 });
 	var infraLayer=new esri.layers.ArcGISDynamicMapServiceLayer("http://energy.esri.com/arcgis/rest/services/NorthSea_Response/NorthSeaInfrastructure/MapServer",
  {useMapImage:true});
  var spillLayer=new esri.layers.ArcGISDynamicMapServiceLayer("http://energy.esri.com/arcgis/rest/services/NorthSea_Response/SpillExtent/MapServer",

@@ -92,9 +92,10 @@ esriConfig.defaults.io.corsEnabledServers.push("arcgis.com");
      
      ////
      $('#serviceArea').on('click',function(){
-     	
+     	if(serviceArea!=null)
 	serviceArea = dojo.connect(temMapRef, 'onClick', main.customServiceArea);
-     	
+     	else
+     	temMapRef.graphics.clear();
      });
           $('#swipeToggle').on('click',function(){$( '#swipeDiv' ).toggle();});
 	$('.current-location').on('click',function() { $this.getLocation($this.model) });
@@ -191,7 +192,8 @@ saveMsg: function (evt) {
 
       var gp;
       var driveTimes = "1 2 3";
-dojo.disconnect(serviceArea)
+dojo.disconnect(serviceArea);
+serviceArea=null;
       // Initialize map, GP and image params
       gp = new Geoprocessor("http://sampleserver1.arcgisonline.com/ArcGIS/rest/services/Network/ESRI_DriveTime_US/GPServer/CreateDriveTimePolygons");
       gp.setOutputSpatialReference({wkid: 102100});

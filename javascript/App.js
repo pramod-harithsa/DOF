@@ -89,14 +89,9 @@ esriConfig.defaults.io.corsEnabledServers.push("arcgis.com");
      
      ////
      $('#serviceArea').on('click',function(){
-     	if (serviceArea){
-     		dojo.disconnect(serviceArea) 
-     		
-     	}
-     	else
-     	{
+     	
 	serviceArea = dojo.connect(temMapRef, 'onClick', dojo.hitch(this, this.customServiceArea));
-     	}
+     	
      });
           $('#swipeToggle').on('click',function(){$( '#swipeDiv' ).toggle();});
 	$('.current-location').on('click',function() { $this.getLocation($this.model) });
@@ -192,7 +187,7 @@ saveMsg: function (evt) {
 
       var gp;
       var driveTimes = "1 2 3";
-
+dojo.disconnect(serviceArea)
       // Initialize map, GP and image params
       gp = new Geoprocessor("http://sampleserver1.arcgisonline.com/ArcGIS/rest/services/Network/ESRI_DriveTime_US/GPServer/CreateDriveTimePolygons");
       gp.setOutputSpatialReference({wkid: 102100});
@@ -245,6 +240,7 @@ saveMsg: function (evt) {
         // get the extent for the drive time polygon graphics and
         // zoom to the extent of the drive time polygons
         temMapRef.setExtent(graphicsUtils.graphicsExtent(temMapRef.graphics.graphics), true);
+        
       }
     });
 },initTypeahead: function () {

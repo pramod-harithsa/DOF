@@ -16,7 +16,7 @@ initialize: function() {
 	this.fb = new Firebase('https://boiling-fire-2225.firebaseio.com/users');
 	//https://boiling-fire-2225.firebaseio.com/users
 	
-	this.symbol = new esri.symbol.SimpleMarkerSymbol().setColor(new dojo.Color([5, 112, 176, 0]));
+	this.symbol = new esri.symbol.SimpleMarkerSymbol().setColor(new dojo.Color([5, 112, 176] ), 2);
 	this.symbol.setOutline(new esri.symbol.SimpleLineSymbol().setWidth(0.5));
 
 	/*

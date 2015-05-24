@@ -76,7 +76,7 @@ esriConfig.defaults.io.corsEnabledServers.push("arcgis.com");
  {useMapImage:true});
  var bakkenVehiclesLayer=new esri.layers.ArcGISDynamicMapServiceLayer("http://energy.esri.com/arcgis/rest/services/Bakken/Maintenance_Vehicles/MapServer",
  {useMapImage:true});
- this.map.addLayers([bakkenWellsLayer,basemapLayer,infraLayer,spillLayer,wellLayer,responseLayer,spillAreaLayer,protractionLayer,bakkenDivLayer,bakkenOpsLayer,bakkenFeaturesLayer,bakkenVehiclesLayer]);
+ this.map.addLayers([alertGraphicsLayer,bakkenWellsLayer,basemapLayer,infraLayer,spillLayer,wellLayer,responseLayer,spillAreaLayer,protractionLayer,bakkenDivLayer,bakkenOpsLayer,bakkenFeaturesLayer,bakkenVehiclesLayer]);
  var home = new esri.dijit.HomeButton({
         map: this.map
       }, "HomeButton");

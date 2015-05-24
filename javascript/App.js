@@ -92,10 +92,13 @@ esriConfig.defaults.io.corsEnabledServers.push("arcgis.com");
      
      ////
      $('#serviceArea').on('click',function(){
-     	if(serviceArea!=null || typeof(serviceArea)=="undefined")
+     	if(serviceArea==null || typeof(serviceArea)=="undefined")
 	serviceArea = dojo.connect(temMapRef, 'onClick', main.customServiceArea);
      	else
+     	{
      	temMapRef.graphics.clear();
+     	serviceArea=1;
+     	}
      });
           $('#swipeToggle').on('click',function(){$( '#swipeDiv' ).toggle();});
 	$('.current-location').on('click',function() { $this.getLocation($this.model) });

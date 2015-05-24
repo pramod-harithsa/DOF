@@ -86,7 +86,7 @@ esriConfig.defaults.io.corsEnabledServers.push("arcgis.com");
      ////
      require([
       
-      "dojo/on"
+      "dojo/on",
       "esri/graphic",
       "esri/graphicsUtils",
       "esri/tasks/Geoprocessor",

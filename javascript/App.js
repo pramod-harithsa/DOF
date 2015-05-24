@@ -4,6 +4,7 @@ dojo.require("esri.dijit.HomeButton");
 dojo.require("esri.dijit.LayerSwipe");
 dojo.require("esri.layers.FeatureLayer");
 var temMapRef;
+var serviceArea;
 dojo.addOnLoad(function () {
 var AppView = Backbone.View.extend({
 el: 'body',
@@ -104,7 +105,7 @@ esriConfig.defaults.io.corsEnabledServers.push("arcgis.com");
       // Initialize map, GP and image params
       gp = new Geoprocessor("http://sampleserver1.arcgisonline.com/ArcGIS/rest/services/Network/ESRI_DriveTime_US/GPServer/CreateDriveTimePolygons");
       gp.setOutputSpatialReference({wkid: 102100});
-      On(this.map,"click", computeServiceArea);
+      //On(this.map,"click", computeServiceArea);
 
       function computeServiceArea(evt) {
         temMapRef.graphics.clear();
@@ -156,6 +157,16 @@ esriConfig.defaults.io.corsEnabledServers.push("arcgis.com");
       }
     });
      ////
+     $('#serviceArea').on('click',function(){
+     	if (serviceArea){
+     		dojo.disconnect(serviceArea) 
+     		
+     	}
+     	else
+     	{
+	serviceArea = dojo.connect(temMapRef, 'onClick', computeServiceArea);
+     	}
+     });
           $('#swipeToggle').on('click',function(){$( '#swipeDiv' ).toggle();});
 	$('.current-location').on('click',function() { $this.getLocation($this.model) });
 	$('#search-input').on('typeahead:selected', function (evt, datum, name) {

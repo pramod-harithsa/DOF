@@ -77,11 +77,84 @@ esriConfig.defaults.io.corsEnabledServers.push("arcgis.com");
       }, "HomeButton");
       home.startup();
       var swipeWidget = new esri.dijit.LayerSwipe({
-            type: "vertical",  //Try switching to "scope" or "horizontal"
+            type: "scope",  //Try switching to "scope" or "horizontal"
             map: this.map,
             layers: [bakkenWellsLayer]
           }, "swipeDiv");
           swipeWidget.startup();
+          
+     ////
+     require([
+      "esri/Color",
+      "esri/map",
+      "esri/graphic",
+      "esri/graphicsUtils",
+      "esri/tasks/Geoprocessor",
+      "esri/tasks/FeatureSet",
+      "esri/symbols/SimpleMarkerSymbol",
+      "esri/symbols/SimpleLineSymbol",
+      "esri/symbols/SimpleFillSymbol"
+    ], function(Color, Map, Graphic, graphicsUtils, Geoprocessor, FeatureSet, SimpleMarkerSymbol, SimpleLineSymbol,
+                SimpleFillSymbol) {
+
+      var gp;
+      var driveTimes = "1 2 3";
+
+      // Initialize map, GP and image params
+      gp = new Geoprocessor("http://sampleserver1.arcgisonline.com/ArcGIS/rest/services/Network/ESRI_DriveTime_US/GPServer/CreateDriveTimePolygons");
+      gp.setOutputSpatialReference({wkid: 102100});
+      this.map.on("click", computeServiceArea);
+
+      function computeServiceArea(evt) {
+        this.map.graphics.clear();
+        var pointSymbol = new SimpleMarkerSymbol();
+        pointSymbol.setOutline = new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID, new Color([255, 0, 0]), 1);
+        pointSymbol.setSize(14);
+        pointSymbol.setColor(new Color([0, 255, 0, 0.25]));
+
+        var graphic = new Graphic(evt.mapPoint, pointSymbol);
+        this.map.graphics.add(graphic);
+
+        var features = [];
+        features.push(graphic);
+        var featureSet = new FeatureSet();
+        featureSet.features = features;
+        var params = { "Input_Location": featureSet, "Drive_Times": driveTimes };
+        gp.execute(params, getDriveTimePolys);
+      }
+
+      function getDriveTimePolys(results, messages) {
+        var features = results[0].value.features;
+        // add drive time polygons to the map
+        for (var f = 0, fl = features.length; f < fl; f++) {
+          var feature = features[f];
+          if (f === 0) {
+            var polySymbolRed = new SimpleFillSymbol();
+            polySymbolRed.setOutline(new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID, new Color([0, 0, 0, 0.5]), 1));
+            polySymbolRed.setColor(new Color([255, 0, 0, 0.7]));
+            feature.setSymbol(polySymbolRed);
+          }
+          else if (f == 1) {
+            var polySymbolGreen = new SimpleFillSymbol();
+            polySymbolGreen.setOutline(new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID,
+                new Color([0, 0, 0, 0.5]), 1));
+            polySymbolGreen.setColor(new Color([0, 255, 0, 0.7]));
+            feature.setSymbol(polySymbolGreen);
+          }
+          else if (f == 2) {
+            var polySymbolBlue = new SimpleFillSymbol();
+            polySymbolBlue.setOutline(new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID, new Color([0, 0, 0, 0.5]), 1));
+            polySymbolBlue.setColor(new Color([0, 0, 255, 0.7]));
+            feature.setSymbol(polySymbolBlue);
+          }
+          this.map.graphics.add(feature);
+        }
+        // get the extent for the drive time polygon graphics and
+        // zoom to the extent of the drive time polygons
+        this.map.setExtent(graphicsUtils.graphicsExtent(this.map.graphics.graphics), true);
+      }
+    });
+     ////
           $('#swipeToggle').on('click',function(){$( '#swipeDiv' ).toggle();});
 	$('.current-location').on('click',function() { $this.getLocation($this.model) });
 	$('#search-input').on('typeahead:selected', function (evt, datum, name) {

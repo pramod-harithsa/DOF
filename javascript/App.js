@@ -5,7 +5,7 @@ dojo.require("esri.dijit.LayerSwipe");
 dojo.require("esri.layers.FeatureLayer");
 dojo.require("esri.layers.graphics");
 var temMapRef;
-var serviceArea;
+var serviceArea,serviceAreaFlag=false;
 var main, alertGraphicsLayer;
 dojo.addOnLoad(function () {
 var AppView = Backbone.View.extend({
@@ -92,12 +92,12 @@ esriConfig.defaults.io.corsEnabledServers.push("arcgis.com");
      
      ////
      $('#serviceArea').on('click',function(){
-     	if(serviceArea!=null || typeof(serviceArea)=="undefined")
+     	if(serviceAreaFlag==false || typeof(serviceArea)=="undefined")
 	serviceArea = dojo.connect(temMapRef, 'onClick', main.customServiceArea);
      	else
      	{
      	temMapRef.graphics.clear();
-     	serviceArea=1;
+     	serviceAreaFlag=false;
      	}
      });
           $('#swipeToggle').on('click',function(){$( '#swipeDiv' ).toggle();});
@@ -196,7 +196,7 @@ saveMsg: function (evt) {
       var gp;
       var driveTimes = "1 2 3";
 dojo.disconnect(serviceArea);
-serviceArea=null;
+serviceAreaFlag=true;
       // Initialize map, GP and image params
       gp = new Geoprocessor("http://sampleserver1.arcgisonline.com/ArcGIS/rest/services/Network/ESRI_DriveTime_US/GPServer/CreateDriveTimePolygons");
       gp.setOutputSpatialReference({wkid: 102100});

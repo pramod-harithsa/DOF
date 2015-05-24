@@ -15,11 +15,9 @@ initialize: function() {
 	//this.fb = new Firebase('https://luminous-fire-5575.firebaseio.com/users');
 	this.fb = new Firebase('https://boiling-fire-2225.firebaseio.com/users');
 	//https://boiling-fire-2225.firebaseio.com/users
-	var startColor = new esri.Color("#0000FF");
-  var endColor = new esri.Color("#CA0013");
-  var blendedColor = esri.Color.blendColors(startColor, endColor, 0.5);
-	this.symbol = new esri.symbol.SimpleMarkerSymbol().setColor(blendedColor);
-	this.symbol.setOutline(null);
+	
+	this.symbol = new esri.symbol.SimpleMarkerSymbol().setColor(new dojo.Color([5, 112, 176, 0]));
+	this.symbol.setOutline(new esri.symbol.SimpleLineSymbol().setWidth(0.5));
 
 	/*
 	require(["esri/arcgis/utils","esri/config"], function(arcgisUtils,esriConfig) { 

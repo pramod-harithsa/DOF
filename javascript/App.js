@@ -104,7 +104,8 @@ esriConfig.defaults.io.corsEnabledServers.push("arcgis.com");
       gp = new Geoprocessor("http://sampleserver1.arcgisonline.com/ArcGIS/rest/services/Network/ESRI_DriveTime_US/GPServer/CreateDriveTimePolygons");
       gp.setOutputSpatialReference({wkid: 102100});
       this.map.on("click", computeServiceArea);
-
+if (this.serArea){ dojo.disconnect(this.serArea) };
+	this.serArea = dojo.connect(this.map, 'onClick', computeServiceArea);
       function computeServiceArea(evt) {
         this.map.graphics.clear();
         var pointSymbol = new SimpleMarkerSymbol();

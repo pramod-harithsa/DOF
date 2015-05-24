@@ -14,11 +14,8 @@ initialize: function() {
 	//this.fb = new Firebase('https://luminous-fire-5575.firebaseio.com/users');
 	this.fb = new Firebase('https://boiling-fire-2225.firebaseio.com/users');
 	//https://boiling-fire-2225.firebaseio.com/users
-//	this.symbol = new esri.symbol.SimpleMarkerSymbol().setColor(new dojo.Color([0, 255, 0, 0.25]));
-this.symbol =new esri.symbol.SimpleFillSymbol(esri.symbol.SimpleFillSymbol.STYLE_NULL,
-                  new esri.symbol.SimpleLineSymbol(esri.symbol.SimpleLineSymbol.STYLE_SOLID,
-                      new dojo.Color( [5, 112, 176] ), 2),
-                  new dojo.Color( [5, 112, 176, 0] ));
+	this.symbol = new esri.symbol.SimpleMarkerSymbol().setColor(new dojo.Color([5, 112, 176] ), 2);
+
 	/*
 	require(["esri/arcgis/utils","esri/config"], function(arcgisUtils,esriConfig) { 
 var deferred;

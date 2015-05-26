@@ -47,7 +47,7 @@ var swipeLayer = new esri.layers.FeatureLayer("http://services.arcgisonline.com/
 var bakkenLeaseLayer = new esri.layers.FeatureLayer("http://energy.esri.com/arcgis/rest/services/Bakken/Features/FeatureServer/6", {showLabels: true, outFields: ["*"],"opacity": 0.5});
 var bakkenFlowRateLayer = new esri.layers.FeatureLayer("http://energy.esri.com/arcgis/rest/services/Bakken/Well_Performance/FeatureServer/0", {showLabels: true, outFields: ["*"],"opacity": 0.5});
  
- this.map.addLayers([alertGraphicsLayer,basemapLayer,infraLayer,spillLayer,wellLayer,responseLayer,spillAreaLayer,protractionLayer,bakkenDivLayer,bakkenLeaseLayer,bakkenFlowRateLayer,swipeLayer]);
+ this.map.addLayers([alertGraphicsLayer,basemapLayer,infraLayer,spillLayer,wellLayer,responseLayer,spillAreaLayer,protractionLayer,bakkenDivLayer,bakkenLeaseLayer,bakkenFlowRateLayer]);
  var home = new esri.dijit.HomeButton({
         map: this.map
       }, "HomeButton");

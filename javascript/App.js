@@ -4,6 +4,7 @@ dojo.require("esri.dijit.HomeButton");
 dojo.require("esri.dijit.LayerSwipe");
 dojo.require("esri.layers.FeatureLayer");
 dojo.require("esri.layers.graphics");
+dojo.require("esri.InfoTemplate");
 var temMapRef;
 var serviceArea,serviceAreaFlag=false;
 var main, alertGraphicsLayer;
@@ -45,8 +46,9 @@ initialize: function() {
 var swipeLayer = new esri.layers.FeatureLayer("http://services.arcgisonline.com/arcgis/rest/services/Demographics/USA_Tapestry/MapServer/1", {showLabels: true, outFields: ["*"],"opacity": 0.3});
 
 var bakkenLeaseLayer = new esri.layers.FeatureLayer("http://energy.esri.com/arcgis/rest/services/Bakken/Features/FeatureServer/6", {showLabels: true, outFields: ["*"],"opacity": 0.5});
-var bakkenFlowRateLayer = new esri.layers.FeatureLayer("http://energy.esri.com/arcgis/rest/services/Bakken/Well_Performance/FeatureServer/0", {showLabels: true, outFields: ["*"],"opacity": 0.5});
- 
+var infoTemplate = new esri.InfoTemplate("Attributes", "${*}");
+var bakkenFlowRateLayer = new esri.layers.FeatureLayer("http://energy.esri.com/arcgis/rest/services/Bakken/Well_Performance/FeatureServer/0", {infoTemplate: infoTemplate,showLabels: true, outFields: ["*"],"opacity": 0.5});
+  
  this.map.addLayers([alertGraphicsLayer,basemapLayer,infraLayer,spillLayer,wellLayer,responseLayer,spillAreaLayer,protractionLayer,bakkenDivLayer,bakkenLeaseLayer,bakkenFlowRateLayer]);
  var home = new esri.dijit.HomeButton({
         map: this.map

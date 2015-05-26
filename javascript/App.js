@@ -22,33 +22,7 @@ initialize: function() {
 	
 	this.symbol = new esri.symbol.SimpleMarkerSymbol().setColor(new dojo.Color([5, 112, 176] ), 2);
 	this.symbol.setOutline(new esri.symbol.SimpleLineSymbol().setWidth(0.5));
-alertGraphicsLayer=new esri.layers.GraphicsLayer();
-	/*
-	require(["esri/arcgis/utils","esri/config"], function(arcgisUtils,esriConfig) { 
-var deferred;
-esriConfig.defaults.io.corsEnabledServers.push("arcgis.com");
-//esriConfig.defaults.io.corsEnabledServers.push("energy.esri.com");
-    var createMapOptions = {
-        mapOptions: {
-            slider: true
-        },
-               
-        geometryServiceURL: "http://sampleserver3.arcgisonline.com/ArcGIS/rest/services/Geometry/GeometryServer"
-
-    };
-    var webMapItemID = "0359aa3c64914a91af00adf054c1ca92";
-    deferred = arcgisUtils.createMap(webMapItemID, "map", createMapOptions);
-
-    deferred.then(function (response) {
-        this.map = response.map;
-    }, function (error) {
-        console.log("Error: ", error.code, " Message: ", error.message);
-        deferred.cancel();
-    });
-
- });
-*/	
-
+	alertGraphicsLayer=new esri.layers.GraphicsLayer();
 	this.map = new esri.Map('map', {basemap: 'gray', center: [-103.396454, 48.284335], zoom: 12 });
 	temMapRef=this.map;
 	var infraLayer=new esri.layers.ArcGISDynamicMapServiceLayer("http://energy.esri.com/arcgis/rest/services/NorthSea_Response/NorthSeaInfrastructure/MapServer",
@@ -67,24 +41,21 @@ esriConfig.defaults.io.corsEnabledServers.push("arcgis.com");
  {useMapImage:true});
  var bakkenDivLayer=new esri.layers.ArcGISDynamicMapServiceLayer("http://energy.esri.com/arcgis/rest/services/Bakken/BakkenMS/MapServer",
  {useMapImage:true});
- var bakkenWellsLayer=new esri.layers.ArcGISDynamicMapServiceLayer("http://energy.esri.com/arcgis/rest/services/Bakken/Wells_by_County/MapServer",
- {useMapImage:true,"opacity": 0.5});
-// var bakkenWellsLayer = new esri.layers.FeatureLayer("http://energy.esri.com/arcgis/rest/services/Bakken/Wells_by_County/MapServer/0", {showLabels: true, outFields: ["*"],"opacity": 0.5});
- var bakkenOpsLayer=new esri.layers.ArcGISDynamicMapServiceLayer("http://energy.esri.com/arcgis/rest/services/Bakken/Operations/MapServer",
- {useMapImage:true});
- var bakkenFeaturesLayer=new esri.layers.ArcGISDynamicMapServiceLayer("http://energy.esri.com/arcgis/rest/services/Bakken/Features/MapServer",
- {useMapImage:true});
- var bakkenVehiclesLayer=new esri.layers.ArcGISDynamicMapServiceLayer("http://energy.esri.com/arcgis/rest/services/Bakken/Maintenance_Vehicles/MapServer",
- {useMapImage:true});
- this.map.addLayers([alertGraphicsLayer,bakkenWellsLayer,basemapLayer,infraLayer,spillLayer,wellLayer,responseLayer,spillAreaLayer,protractionLayer,bakkenDivLayer,bakkenOpsLayer,bakkenFeaturesLayer,bakkenVehiclesLayer]);
+ 
+var swipeLayer = new esri.layers.FeatureLayer("http://services.arcgisonline.com/arcgis/rest/services/Demographics/USA_Tapestry/MapServer/1", {showLabels: true, outFields: ["*"],"opacity": 0.3});
+
+var bakkenLeaseLayer = new esri.layers.FeatureLayer("http://energy.esri.com/arcgis/rest/services/Bakken/Features/FeatureServer/6", {showLabels: true, outFields: ["*"],"opacity": 0.5});
+var bakkenFlowRateLayer = new esri.layers.FeatureLayer("http://energy.esri.com/arcgis/rest/services/Bakken/Well_Performance/FeatureServer/0", {showLabels: true, outFields: ["*"],"opacity": 0.5});
+ 
+ this.map.addLayers([alertGraphicsLayer,basemapLayer,infraLayer,spillLayer,wellLayer,responseLayer,spillAreaLayer,protractionLayer,bakkenDivLayer,bakkenLeaseLayer,bakkenFlowRateLayer,swipeLayer]);
  var home = new esri.dijit.HomeButton({
         map: this.map
       }, "HomeButton");
       home.startup();
       var swipeWidget = new esri.dijit.LayerSwipe({
-            type: "scope",  //Try switching to "scope" or "horizontal"
+            type: "vertical",  //Try switching to "scope" or "horizontal"
             map: this.map,
-            layers: [bakkenWellsLayer]
+            layers: [swipeLayer]
           }, "swipeDiv");
           swipeWidget.startup();
           

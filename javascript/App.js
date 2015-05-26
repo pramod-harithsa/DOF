@@ -52,12 +52,12 @@ var bakkenFlowRateLayer = new esri.layers.FeatureLayer("http://energy.esri.com/a
         map: this.map
       }, "HomeButton");
       home.startup();
-      var swipeWidget = new esri.dijit.LayerSwipe({
+     /* var swipeWidget = new esri.dijit.LayerSwipe({
             type: "vertical",  //Try switching to "scope" or "horizontal"
             map: this.map,
             layers: [swipeLayer]
           }, "swipeDiv");
-          swipeWidget.startup();
+          swipeWidget.startup();*/
           
      ////
      

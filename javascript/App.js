@@ -43,7 +43,7 @@ initialize: function() {
  var bakkenDivLayer=new esri.layers.ArcGISDynamicMapServiceLayer("http://energy.esri.com/arcgis/rest/services/Bakken/BakkenMS/MapServer",
  {useMapImage:true});
  
-var swipeLayer = new esri.layers.FeatureLayer("http://services.arcgisonline.com/arcgis/rest/services/Demographics/USA_Tapestry/MapServer/1", {showLabels: true, outFields: ["*"],"opacity": 0.3});
+var swipeLayer = new esri.layers.FeatureLayer("http://sampleserver1.arcgisonline.com/ArcGIS/rest/services/Demographics/ESRI_Census_USA/MapServer/0", {showLabels: true, outFields: ["*"],"opacity": 0.3});
 
 var bakkenLeaseLayer = new esri.layers.FeatureLayer("http://energy.esri.com/arcgis/rest/services/Bakken/Features/FeatureServer/6", {showLabels: true, outFields: ["*"],"opacity": 0.5});
 var infoTemplate = new esri.InfoTemplate("Real Time Pi Feed", "${*}");

@@ -42,7 +42,8 @@ initialize: function() {
  {useMapImage:true});
  var bakkenDivLayer=new esri.layers.ArcGISDynamicMapServiceLayer("http://energy.esri.com/arcgis/rest/services/Bakken/BakkenMS/MapServer",
  {useMapImage:true});
- 
+  var swipeLayer1=new esri.layers.ArcGISDynamicMapServiceLayer("http://sampleserver6.arcgisonline.com/arcgis/rest/services/Census/MapServer",
+ {useMapImage:true});
 var swipeLayer = new esri.layers.FeatureLayer("http://sampleserver6.arcgisonline.com/arcgis/rest/services/Census/MapServer/1", {showLabels: true, outFields: ["*"],"opacity": 0.8});
 
 var bakkenLeaseLayer = new esri.layers.FeatureLayer("http://energy.esri.com/arcgis/rest/services/Bakken/Features/FeatureServer/6", {showLabels: true, outFields: ["*"],"opacity": 0.5});
@@ -57,7 +58,7 @@ var bakkenFlowRateLayer = new esri.layers.FeatureLayer("http://energy.esri.com/a
      var swipeWidget = new esri.dijit.LayerSwipe({
             type: "scope",  //Try switching to "scope" or "horizontal"
             map: this.map,
-            layers: [swipeLayer]
+            layers: [swipeLayer1]
           }, "swipeDiv");
           swipeWidget.startup();
           

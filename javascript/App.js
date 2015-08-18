@@ -49,7 +49,7 @@ var bakkenLeaseLayer = new esri.layers.FeatureLayer("http://energy.esri.com/arcg
 var infoTemplate = new esri.InfoTemplate("Real Time Pi Feed", "${*}");
 var bakkenFlowRateLayer = new esri.layers.FeatureLayer("http://energy.esri.com/arcgis/rest/services/Bakken/Well_Performance/FeatureServer/0", {infoTemplate: infoTemplate,showLabels: true, outFields: ["*"],"opacity": 0.5});
   
- this.map.addLayers([alertGraphicsLayer,basemapLayer,infraLayer,spillLayer,wellLayer,responseLayer,spillAreaLayer,protractionLayer,bakkenDivLayer,bakkenLeaseLayer,bakkenFlowRateLayer]);
+ this.map.addLayers([alertGraphicsLayer,basemapLayer,infraLayer,spillLayer,wellLayer,responseLayer,spillAreaLayer,protractionLayer,bakkenDivLayer,bakkenLeaseLayer,bakkenFlowRateLayer,swipeLayer]);
  var home = new esri.dijit.HomeButton({
         map: this.map
       }, "HomeButton");

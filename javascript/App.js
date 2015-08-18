@@ -55,7 +55,7 @@ var bakkenFlowRateLayer = new esri.layers.FeatureLayer("http://energy.esri.com/a
       }, "HomeButton");
       home.startup();
      var swipeWidget = new esri.dijit.LayerSwipe({
-            type: "vertical",  //Try switching to "scope" or "horizontal"
+            type: "scope",  //Try switching to "scope" or "horizontal"
             map: this.map,
             layers: [swipeLayer]
           }, "swipeDiv");

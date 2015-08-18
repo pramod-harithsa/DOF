@@ -61,7 +61,7 @@ var bakkenFlowRateLayer = new esri.layers.FeatureLayer("http://energy.esri.com/a
           }, "swipeDiv");
           swipeWidget.startup();
           
-     ////
+     
      
      ////
      $('#serviceArea').on('click',function(){

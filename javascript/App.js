@@ -42,7 +42,7 @@ initialize: function() {
  {useMapImage:true});
  var bakkenDivLayer=new esri.layers.ArcGISDynamicMapServiceLayer("http://energy.esri.com/arcgis/rest/services/Bakken/BakkenMS/MapServer",
  {useMapImage:true});
-  var swipeLayer1=new esri.layers.ArcGISDynamicMapServiceLayer("http://server.arcgisonline.com/arcgis/rest/services/Demographics/USA_Tapestry/MapServer",{useMapImage:true,id:"altSwipe"});
+  var swipeLayer1=new esri.layers.ArcGISDynamicMapServiceLayer("http://arcgis.storymaps.esri.com/ArcGIS/rest/services/Diabetes/USA_Obesity_Rates_2009/MapServer",{id:"altSwipe"});
 var swipeLayer = new esri.layers.FeatureLayer("http://sampleserver6.arcgisonline.com/arcgis/rest/services/Census/MapServer/1", {showLabels: true, outFields: ["*"],"opacity": 0.8});
 
 var bakkenLeaseLayer = new esri.layers.FeatureLayer("http://energy.esri.com/arcgis/rest/services/Bakken/Features/FeatureServer/6", {showLabels: true, outFields: ["*"],"opacity": 0.5});

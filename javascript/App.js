@@ -42,23 +42,23 @@ initialize: function() {
  {useMapImage:true});
  var bakkenDivLayer=new esri.layers.ArcGISDynamicMapServiceLayer("http://energy.esri.com/arcgis/rest/services/Bakken/BakkenMS/MapServer",
  {useMapImage:true});
-  var swipeLayer1=new esri.layers.ArcGISDynamicMapServiceLayer("http://sampleserver6.arcgisonline.com/arcgis/rest/services/Census/MapServer",
- {useMapImage:true});
+  var swipeLayer1=new esri.layers.ArcGISDynamicMapServiceLayer("http://server.arcgisonline.com/arcgis/rest/services/Demographics/USA_Tapestry/MapServer",{useMapImage:true,id:"altSwipe"});
 var swipeLayer = new esri.layers.FeatureLayer("http://sampleserver6.arcgisonline.com/arcgis/rest/services/Census/MapServer/1", {showLabels: true, outFields: ["*"],"opacity": 0.8});
 
 var bakkenLeaseLayer = new esri.layers.FeatureLayer("http://energy.esri.com/arcgis/rest/services/Bakken/Features/FeatureServer/6", {showLabels: true, outFields: ["*"],"opacity": 0.5});
 var infoTemplate = new esri.InfoTemplate("Real Time Pi Feed", "${*}");
 var bakkenFlowRateLayer = new esri.layers.FeatureLayer("http://energy.esri.com/arcgis/rest/services/Bakken/Well_Performance/FeatureServer/0", {infoTemplate: infoTemplate,showLabels: true, outFields: ["*"],"opacity": 0.5});
   
- this.map.addLayers([alertGraphicsLayer,basemapLayer,infraLayer,spillLayer,wellLayer,responseLayer,spillAreaLayer,protractionLayer,bakkenDivLayer,bakkenLeaseLayer,bakkenFlowRateLayer,swipeLayer]);
+ this.map.addLayers([alertGraphicsLayer,basemapLayer,infraLayer,spillLayer,wellLayer,responseLayer,spillAreaLayer,protractionLayer,bakkenDivLayer,bakkenLeaseLayer,bakkenFlowRateLayer,swipeLayer1]);
  var home = new esri.dijit.HomeButton({
         map: this.map
       }, "HomeButton");
       home.startup();
+      var swipeLayerConfig = map.getLayer("altSwipe");
      var swipeWidget = new esri.dijit.LayerSwipe({
             type: "scope",  //Try switching to "scope" or "horizontal"
             map: this.map,
-            layers: [swipeLayer1]
+            layers: [swipeLayerConfig]
           }, "swipeDiv");
           swipeWidget.startup();
           
